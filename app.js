@@ -20,6 +20,8 @@ app.get('/contatos', function(req, res) {
     res.json(contatos);
 });
 
-app.listen(3000, function() {
-    console.log('Servidor no ar');
+var port = process.env.PORT || 3000
+
+app.listen(port, function() {
+    console.log('Servidor no ar na porta ' + port);
 });
