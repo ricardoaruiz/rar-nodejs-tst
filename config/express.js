@@ -1,10 +1,12 @@
 var express = require('express');
+var load = require('express-load');
 
 module.exports = function() {
 
     var app = express();
 
-    //Configurações
+    load('controllers', {cwd : 'app'})
+        .into(app);
 
     return app;
 }
