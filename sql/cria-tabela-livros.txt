@@ -1,0 +1,14 @@
+CREATE TABLE `livros` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` varchar(255) DEFAULT NULL,
+  `descricao` text,
+  `preco` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+
+
+select * from livros;
+insert into livros (titulo, descricao, preco) values('Titulo1','Descricao1',10);
+insert into livros (titulo, descricao, preco) values('Titulo2','Descricao2',10);
+insert into livros (titulo, descricao, preco) values('Titulo3','Descricao3',10);
+commit;

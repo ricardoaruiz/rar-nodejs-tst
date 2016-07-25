@@ -6,6 +6,7 @@ module.exports = function() {
     var app = express();
 
     load('controllers', {cwd : 'app'})
+        .then('infra')
         .into(app);
 
     return app;

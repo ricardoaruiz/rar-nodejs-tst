@@ -17,7 +17,19 @@ module.exports = function(app) {
 
     // Endpoint para consulta de livros.
     app.get('/livros', function(req, res, next) {
-        res.json(livros);
+
+        var connection = app.infra.ConnectionFactory();
+
+        connection.query('select * from livros', function(err, result) {
+            if(!err) {
+                res.json(result);
+            } else {
+                res.json(err);
+            }
+        });
+
+        connection.end();
+
     });
 
 }
