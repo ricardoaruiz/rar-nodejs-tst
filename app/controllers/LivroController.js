@@ -1,20 +1,17 @@
 module.exports = function(app) {
 
+    var livroService = app.services.LivroServices();
+
     // Endpoint para consulta de livros.
     app.get('/livros', function(req, res, next) {
 
-        var connection = app.infra.ConnectionFactory();
-
-        connection.query('select * from livros', function(err, result) {
-            if(!err) {
-                res.json(result);
-            } else {
-                res.json(err);
-            }
-        });
-
-        connection.end();
-
+        livroService.listar()
+        .then(function(result) {
+            res.status(200).json(result);
+        })
+        .catch(function(err) {
+            res.status(500).json(err);
+        });       
     });
 
     // Endpoint para cadastrar um livro
@@ -32,19 +29,13 @@ module.exports = function(app) {
         if(errors) {
             res.status(400).json(errors);
         } else {
-
-            var connection = app.infra.ConnectionFactory();
-
-            connection.query('insert into livros (titulo, descricao, preco) values(?,?,?)', 
-                [livro.titulo, livro.descricao, livro.preco],
-                function(err, result) {
-                    if(!err) {
-                        res.status(201).send();
-                    } else {
-                        res.status(500).json(err);
-                    }
+            livroService.inserir(livro)
+            .then(function(result) {
+                res.status(201).send();
+            })
+            .catch(function(err) {
+                res.status(500).json(err);
             });
-            connection.end();
         }
     });
 
